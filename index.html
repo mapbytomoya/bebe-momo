@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BEBE &amp; MOMO｜おっとり兄ちゃんと、ぐいぐい妹。</title>
+  <meta name="description" content="実家で暮らす、ちょっと対照的な2匹の保護猫。おっとりしたハチワレのべべと、元気いっぱいの黒猫もも。ふたりと家族の、なんでもない幸せな毎日。">
+  <meta name="theme-color" content="#FBF7F2">
+
+  <!-- OGP（SNSでシェアしたときの表示）
+       リポジトリ名やユーザー名を変えたら og:image / og:url も書き換えてください -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BEBE &amp; MOMO">
+  <meta property="og:description" content="おっとり兄ちゃんと、ぐいぐい妹。ふたりと家族の、なんでもない幸せな毎日。">
+  <meta property="og:image" content="https://mapbytomoya.github.io/bebe-momo/assets/images/IMG_2232.jpg">
+  <meta property="og:url" content="https://mapbytomoya.github.io/bebe-momo/">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+
+  <!-- フォント（読み込めなくても style.css のフォールバックで表示されます） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- JSが動く環境だけ「ふわっと表示」用のクラスを付ける（JSなしでも内容は見える） -->
+  <script>document.documentElement.classList.add('js');</script>
+  <script type="module" src="assets/js/main.js"></script>
+</head>
+<body>
+  <!-- 猫アイコン・肉球などのSVG部品。<use href="#icon-bebe"> のように呼び出して使います -->
+  <svg class="visually-hidden" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="bebe-head-clip">
+        <path d="M12 23 L13 6 L26 16 Q32 14.5 38 16 L51 6 L52 23 Q58 31 56 41 Q52 57 32 57.5 Q12 57 8 41 Q6 31 12 23Z"/>
+      </clipPath>
+    </defs>
+
+    <!-- べべ：おでこに斜めの白いすじ（ずれたハチワレ）＋黄緑の目 -->
+    <symbol id="icon-bebe" viewBox="0 0 64 64">
+      <path d="M12 23 L13 6 L26 16 Q32 14.5 38 16 L51 6 L52 23 Q58 31 56 41 Q52 57 32 57.5 Q12 57 8 41 Q6 31 12 23Z" fill="#fff"/>
+      <path clip-path="url(#bebe-head-clip)" fill="#262326"
+            d="M0 0 H64 V47 Q53 46 45 42 L37 41 Q34 43 32 46 Q30 43 27 41 L19 42 Q11 46 0 47Z"/>
+      <path d="M30 41.5 Q27.5 32 24.5 20.5 Q26.5 19 28 21.5 Q30.5 31 33 40.5Z" fill="#fff"/>
+      <path d="M12 23 L13 6 L26 16 Q32 14.5 38 16 L51 6 L52 23 Q58 31 56 41 Q52 57 32 57.5 Q12 57 8 41 Q6 31 12 23Z"
+            fill="none" stroke="#262326" stroke-width="2.4" stroke-linejoin="round"/>
+      <ellipse cx="20" cy="33" rx="4.2" ry="4.6" fill="#C4DB7A"/>
+      <ellipse cx="43" cy="33" rx="4.2" ry="4.6" fill="#C4DB7A"/>
+      <ellipse cx="20" cy="33.5" rx="1.6" ry="3.2" fill="#262326"/>
+      <ellipse cx="43" cy="33.5" rx="1.6" ry="3.2" fill="#262326"/>
+      <path d="M32 46.5 q-2.5 3 -5 1.5 M32 46.5 q2.5 3 5 1.5" fill="none" stroke="#262326" stroke-width="1.3" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- もも：真っ黒なシルエット＋金色の目 -->
+    <symbol id="icon-momo" viewBox="0 0 64 64">
+      <path d="M13 24 L12 5 L26 16 Q32 14.5 38 16 L52 5 L51 24 Q57 32 55 41 Q51 56 32 56.5 Q13 56 9 41 Q7 32 13 24Z" fill="#262326"/>
+      <path d="M15.5 19 L15 10 L22 15.5Z M48.5 19 L49 10 L42 15.5Z" fill="#4A4247"/>
+      <ellipse cx="22.5" cy="33" rx="5" ry="5.4" fill="#F0C66E"/>
+      <ellipse cx="41.5" cy="33" rx="5" ry="5.4" fill="#F0C66E"/>
+      <ellipse cx="22.5" cy="33.3" rx="1.7" ry="4" fill="#262326"/>
+      <ellipse cx="41.5" cy="33.3" rx="1.7" ry="4" fill="#262326"/>
+      <circle cx="24" cy="31" r="1.1" fill="#fff"/>
+      <circle cx="43" cy="31" r="1.1" fill="#fff"/>
+      <path d="M32 43 q-2.5 3 -5 1.5 M32 43 q2.5 3 5 1.5" fill="none" stroke="#5C5358" stroke-width="1.3" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- 肉球 -->
+    <symbol id="icon-paw" viewBox="0 0 32 32">
+      <ellipse cx="16" cy="21.5" rx="7.5" ry="6.5"/>
+      <ellipse cx="7" cy="13.5" rx="3" ry="3.8"/>
+      <ellipse cx="12.5" cy="8" rx="3" ry="3.8"/>
+      <ellipse cx="19.5" cy="8" rx="3" ry="3.8"/>
+      <ellipse cx="25" cy="13.5" rx="3" ry="3.8"/>
+    </symbol>
+
+    <!-- ハート -->
+    <symbol id="icon-heart" viewBox="0 0 32 32">
+      <path d="M16 28 C6 21 3 15.5 3 11 A6.5 6.5 0 0 1 16 8.5 A6.5 6.5 0 0 1 29 11 C29 15.5 26 21 16 28Z"/>
+    </symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <header class="site-header" id="top">
+    <a class="logo" href="#top" aria-label="BEBE &amp; MOMO ページの先頭へ">
+      <span class="logo__icons" aria-hidden="true">
+        <svg class="icon"><use href="#icon-bebe"/></svg>
+        <svg class="icon"><use href="#icon-momo"/></svg>
+      </span>
+      <span class="logo__text">BEBE &amp; MOMO</span>
+    </a>
+    <nav aria-label="ページ内リンク">
+      <ul class="nav-list">
+        <li><a href="#cats">Cats</a></li>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#daily">Daily</a></li>
+        <li><a href="#gallery">Album</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ============ 01 HERO ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <p class="eyebrow">Two rescued cats &middot; one cozy living room</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="hero__name hero__name--bebe">BEBE</span>
+          <span class="hero__amp">&amp;</span>
+          <span class="hero__name hero__name--momo">MOMO</span>
+        </h1>
+        <p class="hero__catch">おっとり兄ちゃんと、<br>ぐいぐい妹。</p>
+        <p class="hero__lead">
+          実家で暮らす、ちょっと対照的な2匹の保護猫。<br>
+          おっとりしたべべと、元気いっぱいのもも。<br>
+          そんなふたりの、なんでもない毎日を集めました。
+        </p>
+        <button class="paw-button" type="button" data-paw>
+          <svg class="icon" aria-hidden="true"><use href="#icon-paw"/></svg>
+          <span>肉球をおしてみる</span>
+        </button>
+        <p class="paw-message" data-paw-message aria-live="polite"></p>
+      </div>
+
+      <!-- 写真コラージュ（中身は render.js が data.js から作ります） -->
+      <div class="hero__visual" data-hero></div>
+
+      <a class="scroll-cue" href="#cats">
+        <span>Scroll</span>
+        <span class="scroll-cue__line" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <!-- ============ 02 MEET THE CATS ============ -->
+    <section class="section" id="cats" aria-labelledby="cats-title">
+      <header class="section-head reveal">
+        <p class="section-head__num">01</p>
+        <p class="eyebrow">Meet the Cats</p>
+        <h2 class="section-head__title" id="cats-title">ふたりのプロフィール</h2>
+        <p class="section-head__sub">大きくてやさしいお兄ちゃんと、小さくて（でもけっこう大きい）元気な妹。</p>
+      </header>
+      <div class="profiles" data-profiles></div>
+    </section>
+
+    <!-- ============ 03 OUR STORY ============ -->
+    <section class="section section--tint" id="story" aria-labelledby="story-title">
+      <header class="section-head reveal">
+        <p class="section-head__num">02</p>
+        <p class="eyebrow">How We Became Family</p>
+        <h2 class="section-head__title" id="story-title">家族になった日</h2>
+        <p class="section-head__sub">ふたりとも保護猫。それぞれ、ちがう道のりでこの家にやってきました。</p>
+      </header>
+      <div class="stories" data-stories></div>
+    </section>
+
+    <!-- ============ 04 DAILY LIFE ============ -->
+    <section class="section" id="daily" aria-labelledby="daily-title">
+      <header class="section-head reveal">
+        <p class="section-head__num">03</p>
+        <p class="eyebrow">Our Everyday Moments</p>
+        <h2 class="section-head__title" id="daily-title">ふたりの日常</h2>
+      </header>
+      <ul class="episodes" data-episodes></ul>
+    </section>
+
+    <!-- ============ 05 PHOTO GALLERY ============ -->
+    <section class="section section--tint" id="gallery" aria-labelledby="gallery-title">
+      <header class="section-head reveal">
+        <p class="section-head__num">04</p>
+        <p class="eyebrow">Little Moments</p>
+        <h2 class="section-head__title" id="gallery-title">ふたりの写真アルバム</h2>
+      </header>
+
+      <div class="filters reveal" role="group" aria-label="写真の絞り込み">
+        <button type="button" class="filter" data-filter="all" aria-pressed="true">すべて</button>
+        <button type="button" class="filter filter--bebe" data-filter="bebe" aria-pressed="false">べべ</button>
+        <button type="button" class="filter filter--momo" data-filter="momo" aria-pressed="false">もも</button>
+        <button type="button" class="filter filter--both" data-filter="both" aria-pressed="false">ふたり</button>
+      </div>
+      <p class="visually-hidden" data-gallery-status aria-live="polite"></p>
+
+      <ul class="gallery" data-gallery></ul>
+    </section>
+  </main>
+
+  <!-- ============ 06 FOOTER ============ -->
+  <footer class="site-footer">
+    <button class="paw-button paw-button--round" type="button" data-paw aria-label="肉球をおす">
+      <svg class="icon" aria-hidden="true"><use href="#icon-paw"/></svg>
+    </button>
+    <p class="paw-message" data-paw-message aria-live="polite"></p>
+    <p class="site-footer__love">Made with love for Bebe &amp; Momo.</p>
+    <a class="to-top" href="#top">
+      <span aria-hidden="true">↑</span> ページの先頭へ
+    </a>
+  </footer>
+
+  <!-- 写真の拡大表示（ネイティブの dialog 要素：Escで閉じる・フォーカスを閉じ込める） -->
+  <dialog class="lightbox" data-lightbox aria-labelledby="lightbox-caption">
+    <div class="lightbox__inner">
+      <button type="button" class="lightbox__close" data-lightbox-close aria-label="閉じる">×</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" src="" alt="" data-lightbox-img>
+        <figcaption class="lightbox__caption">
+          <span id="lightbox-caption" data-lightbox-caption></span>
+          <span class="lightbox__count" data-lightbox-count></span>
+        </figcaption>
+      </figure>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="前の写真">‹</button>
+      <button type="button" class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="次の写真">›</button>
+    </div>
+  </dialog>
+
+  <noscript>
+    <p class="noscript">プロフィールや写真の表示にはJavaScriptを使っています。ブラウザの設定でJavaScriptを有効にしてください。</p>
+  </noscript>
+</body>
+</html>

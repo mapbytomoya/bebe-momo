@@ -1,0 +1,1527 @@
+/* ==========================================================
+   BEBE & MOMO — style.css
+   モバイルファースト：基本はスマホ向けに書き、
+   画面が広いときだけ @media (min-width: …) で上書きしています。
+
+   目次
+   1. デザイントークン（色・フォント・角丸など）
+   2. ベース
+   3. 共通パーツ（ラベル・アイコン・写真枠・ボタン）
+   4. ヘッダー
+   5. HERO
+   6. セクション見出し
+   7. MEET THE CATS
+   8. OUR STORY
+   9. DAILY LIFE
+   10. GALLERY / LIGHTBOX
+   11. FOOTER
+   12. スクロール表示・動きを減らす設定
+   ========================================================== */
+
+/* ---------- 1. デザイントークン ---------- */
+:root {
+  --color-bg: #FBF7F2;        /* クリーム：実家の温かさ */
+  --color-bg-tint: #F5EEE6;
+  --color-text: #262326;      /* 黒：2匹の毛色 */
+  --color-sub: #6E6662;
+  --color-card: #FFFFFF;
+  --color-bebe: #DDE8D8;      /* グリーン：べべの目 */
+  --color-bebe-deep: #4F6B47; /* べべ用の文字色（コントラスト確保のため濃い緑） */
+  --color-momo: #F0C66E;      /* ゴールド：ももの目 */
+  --color-momo-soft: #FBEFD3;
+  --color-momo-deep: #7A5512;
+  --color-pink: #EBCFD7;      /* ピンク：可愛らしさ */
+  --color-line: #EAE1D7;
+
+  --font-ja: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --font-en: "Quicksand", "Nunito", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+
+  --radius-s: 12px;
+  --radius-m: 20px;
+  --radius-l: 28px;
+  --shadow-soft: 0 2px 6px rgb(38 35 38 / 0.04), 0 12px 32px rgb(38 35 38 / 0.07);
+  --shadow-lift: 0 4px 10px rgb(38 35 38 / 0.06), 0 22px 44px rgb(38 35 38 / 0.11);
+
+  --gutter: clamp(20px, 5vw, 48px);
+  --max-width: 1120px;
+
+  /* 黒猫の写真を表示するときだけかける補正（元画像は変更しない）。写真を見て調整してください */
+  --dark-fur-filter: brightness(1.1) contrast(1.04);
+
+  --ease-soft: cubic-bezier(0.25, 0.8, 0.3, 1);       /* べべ：ゆったり */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);   /* もも：ぴょこっと */
+}
+
+/* ---------- 2. ベース ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* 固定ヘッダーの下に見出しが隠れないように */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip; /* 横スクロール防止 */
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ja);
+  font-size: 1rem;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+h1, h2, h3, p, ul, dl, dd, figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* キーボード操作時のフォーカス表示（はっきり見える二重リング） */
+:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: var(--color-text);
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.noscript {
+  padding: 16px var(--gutter);
+  text-align: center;
+  background: var(--color-pink);
+}
+
+/* ---------- 3. 共通パーツ ---------- */
+.icon {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  fill: currentColor;
+}
+
+/* 小さな英字ラベル */
+.eyebrow {
+  font-family: var(--font-en);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-sub);
+}
+
+/* 写真の枠：読み込み前から薄い色で場所を確保する */
+.photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--color-bg-tint);
+}
+
+.photo__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: var(--focus, 50% 50%);
+}
+
+.is-dark-fur {
+  filter: var(--dark-fur-filter);
+}
+
+.photo__img.is-missing {
+  filter: none;
+}
+
+/* 写真ファイルが見つからないとき、置くべきファイル名を表示 */
+.photo[data-missing]::after {
+  content: "assets/images/" attr(data-missing);
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 20px);
+  padding: 2px 10px;
+  overflow: hidden;
+  font-family: var(--font-en);
+  font-size: 0.6875rem;
+  color: var(--color-sub);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: rgb(255 255 255 / 0.8);
+  border-radius: 999px;
+}
+
+.photo--round[data-missing]::after {
+  content: none;
+}
+
+/* ボタン */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 48px; /* スマホで押しやすい大きさ */
+  padding: 0 1.4em;
+  font-weight: 700;
+  border: 2px solid var(--color-text);
+  border-radius: 999px;
+  background: var(--color-card);
+  transition: transform 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft), background-color 0.3s;
+}
+
+.btn .icon {
+  font-size: 1.1em;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn--bebe {
+  background: var(--color-bebe);
+}
+
+.btn--momo {
+  background: var(--color-momo);
+  transition-timing-function: var(--ease-bounce);
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    box-shadow: 0 6px 0 -1px var(--color-text);
+    transform: translateY(-3px);
+  }
+
+  .btn:hover:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+  }
+}
+
+/* 吹き出し */
+.bubble {
+  position: relative;
+  display: inline-block;
+  padding: 0.45em 1em;
+  font-weight: 700;
+  line-height: 1.5;
+  background: var(--color-card);
+  border: 2px solid var(--color-text);
+  border-radius: 18px;
+  opacity: 0;
+  transform: scale(0.6) translateY(8px);
+  transform-origin: left bottom;
+  transition: opacity 0.25s, transform 0.35s var(--ease-bounce);
+  pointer-events: none;
+}
+
+.bubble:empty {
+  visibility: hidden;
+}
+
+.bubble.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.bubble--bebe {
+  background: var(--color-bebe);
+  transition-duration: 0.4s, 0.6s;
+  transition-timing-function: ease, var(--ease-soft);
+}
+
+.bubble--momo {
+  background: var(--color-momo-soft);
+}
+
+/* 肉球ボタン */
+.paw-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 44px;
+  margin-top: 28px;
+  padding: 0 1.1em 0 0.9em;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: var(--color-pink);
+  border: 0;
+  border-radius: 999px;
+  transition: transform 0.25s var(--ease-bounce);
+}
+
+.paw-button .icon {
+  font-size: 1.3em;
+}
+
+.paw-button.is-pressed .icon {
+  animation: paw-press 0.45s var(--ease-bounce);
+}
+
+@media (hover: hover) {
+  .paw-button:hover {
+    transform: rotate(-4deg) scale(1.04);
+  }
+}
+
+@keyframes paw-press {
+  0% { transform: scale(1); }
+  40% { transform: scale(0.7) rotate(-12deg); }
+  100% { transform: scale(1); }
+}
+
+.paw-message {
+  min-height: 1.9em; /* 表示されてもレイアウトがずれないよう、先に場所を確保 */
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  color: var(--color-sub);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.paw-message.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- 4. ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px var(--gutter);
+  background: rgb(251 247 242 / 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(234 225 215 / 0.7);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-en);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+
+.logo__icons {
+  display: flex;
+}
+
+.logo__icons .icon {
+  width: 30px;
+  height: 30px;
+}
+
+.logo__icons .icon + .icon {
+  margin-left: -6px;
+}
+
+.logo__text {
+  display: none;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2px;
+}
+
+.nav-list a {
+  display: block;
+  padding: 8px 10px;
+  font-family: var(--font-en);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background-color 0.2s;
+}
+
+.nav-list a:hover {
+  background: var(--color-bg-tint);
+}
+
+@media (min-width: 560px) {
+  .logo__text {
+    display: inline;
+  }
+
+  .nav-list {
+    gap: 6px;
+  }
+
+  .nav-list a {
+    padding: 8px 14px;
+  }
+}
+
+/* ---------- 5. HERO ---------- */
+.hero {
+  position: relative;
+  display: grid;
+  gap: 40px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px var(--gutter) 96px;
+}
+
+.hero__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.25em;
+  margin-top: 12px;
+  font-family: var(--font-en);
+  font-size: clamp(2.75rem, 11vw, 5.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+}
+
+/* 名前の下にそれぞれの「目の色」のマーカー */
+.hero__name {
+  background: linear-gradient(transparent 68%, var(--accent) 68%, var(--accent) 92%, transparent 92%);
+}
+
+.hero__name--bebe {
+  --accent: var(--color-bebe);
+}
+
+.hero__name--momo {
+  --accent: var(--color-momo);
+}
+
+.hero__amp {
+  font-weight: 500;
+  color: var(--color-sub);
+}
+
+.hero__catch {
+  margin-top: 20px;
+  font-size: clamp(1.375rem, 5.2vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.hero__lead {
+  margin-top: 18px;
+  color: var(--color-sub);
+  font-size: 0.9375rem;
+  line-height: 2.1;
+}
+
+/* 写真コラージュ */
+.hero__visual {
+  position: relative;
+  padding: 0 4% 40px;
+}
+
+.hero__main {
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-soft);
+}
+
+.hero__badge {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 26%;
+  max-width: 150px;
+}
+
+.hero__badge .photo {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 5px solid var(--color-card);
+  border-radius: 50%;
+  box-shadow: var(--shadow-soft);
+}
+
+.hero__badge .photo__img {
+  height: 100%;
+}
+
+.hero__badge-label {
+  padding: 0 10px;
+  font-family: var(--font-en);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  border-radius: 999px;
+}
+
+/* べべ：ゆったり傾き、もも：反対側にぴょこっと */
+.hero__badge--bebe {
+  left: -2%;
+  bottom: -4px;
+  transform: rotate(-5deg);
+}
+
+.hero__badge--bebe .hero__badge-label {
+  background: var(--color-bebe);
+}
+
+.hero__badge--momo {
+  right: -2%;
+  top: -18px;
+  transform: rotate(6deg);
+}
+
+.hero__badge--momo .hero__badge-label {
+  order: -1;
+  background: var(--color-momo);
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-en);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-sub);
+  transform: translateX(-50%);
+}
+
+.scroll-cue__line {
+  position: relative;
+  width: 1px;
+  height: 40px;
+  overflow: hidden;
+  background: var(--color-line);
+}
+
+.scroll-cue__line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-text);
+  animation: scroll-line 2.2s var(--ease-soft) infinite;
+}
+
+@keyframes scroll-line {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(100%); }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 5fr 6fr; /* 左右非対称 */
+    align-items: center;
+    gap: 56px;
+    min-height: calc(100svh - 60px);
+    padding-top: 48px;
+    padding-bottom: 120px;
+  }
+
+  .hero__visual {
+    padding: 0 0 40px 6%;
+  }
+}
+
+/* ---------- 6. セクション見出し ---------- */
+.section {
+  padding: 88px var(--gutter);
+}
+
+.section > * {
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+.section--tint {
+  background: var(--color-bg-tint);
+  border-radius: 40px 40px 0 0;
+}
+
+.section--tint + .section {
+  border-radius: 0;
+}
+
+.section-head {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.section-head__num {
+  font-family: var(--font-en);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-sub);
+}
+
+.section-head__num::before,
+.section-head__num::after {
+  content: "—";
+  margin: 0 0.6em;
+  color: var(--color-line);
+}
+
+.section-head .eyebrow {
+  margin-top: 4px;
+}
+
+.section-head__title {
+  margin-top: 6px;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.section-head__sub {
+  max-width: 34em;
+  margin: 14px auto 0;
+  font-size: 0.9375rem;
+  color: var(--color-sub);
+}
+
+/* ---------- 7. MEET THE CATS ---------- */
+.profiles {
+  display: grid;
+  gap: 40px;
+}
+
+.profile {
+  position: relative;
+  padding: 14px 14px 28px;
+  background: var(--color-card);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.6s var(--ease-soft), box-shadow 0.6s var(--ease-soft);
+}
+
+.profile__photo {
+  aspect-ratio: 4 / 5;
+  border-radius: calc(var(--radius-l) - 8px);
+}
+
+.profile__photo .photo__img {
+  height: 100%;
+  transition: transform 0.8s var(--ease-soft);
+}
+
+/* 写真の角にのせる猫アイコン */
+.profile__icon {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  background: var(--accent);
+  border: 3px solid var(--color-card);
+  border-radius: 50%;
+}
+
+.profile__icon .icon {
+  width: 40px;
+  height: 40px;
+}
+
+.profile__body {
+  padding: 24px 10px 0;
+}
+
+.profile__role {
+  display: inline-block;
+  padding: 0 12px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  border-radius: 999px;
+}
+
+.profile__name {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 10px;
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+.profile__en {
+  font-family: var(--font-en);
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  color: var(--color-sub);
+}
+
+.profile__note {
+  margin-top: 4px;
+  font-size: 0.8125rem;
+  color: var(--color-sub);
+}
+
+.profile__intro {
+  margin-top: 14px;
+  line-height: 2;
+}
+
+.facts {
+  display: grid;
+  margin-top: 20px;
+  font-size: 0.875rem;
+  border-top: 1px dashed var(--color-line);
+}
+
+.facts__row {
+  display: grid;
+  grid-template-columns: 8.5em 1fr;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--color-line);
+}
+
+.facts dt {
+  color: var(--color-sub);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tags li {
+  padding: 2px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background: var(--accent-soft);
+  border-radius: 999px;
+}
+
+/* --- べべ：やわらかく、ゆったり --- */
+.profile--bebe {
+  --accent: var(--color-bebe);
+  --accent-soft: #EEF4EB;
+  --accent-deep: var(--color-bebe-deep);
+  border-radius: 36px;
+}
+
+.profile--bebe .profile__name {
+  font-weight: 500;
+}
+
+/* --- もも：ちょっと傾いて、元気に --- */
+.profile--momo {
+  --accent: var(--color-momo);
+  --accent-soft: var(--color-momo-soft);
+  --accent-deep: var(--color-momo-deep);
+  transition-timing-function: var(--ease-bounce);
+  transition-duration: 0.35s;
+}
+
+.profile--momo .profile__name {
+  font-weight: 700;
+}
+
+.profile--momo .tags li:nth-child(odd) {
+  transform: rotate(-3deg);
+}
+
+.profile--momo .tags li:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.profile--momo.is-hopping .profile__icon {
+  animation: hop 0.6s var(--ease-bounce);
+}
+
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-14px) rotate(-8deg); }
+  60% { transform: translateY(0) rotate(4deg); }
+}
+
+@media (hover: hover) {
+  .profile--bebe:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .profile--momo:hover {
+    transform: translateY(-6px) rotate(-0.6deg);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .profile:hover .profile__photo .photo__img {
+    transform: scale(1.04);
+  }
+}
+
+/* なでる・呼ぶ エリア */
+.interact {
+  position: relative;
+  margin-top: 26px;
+}
+
+.interact__stage {
+  position: relative;
+  min-height: 116px; /* 吹き出しが出てもカードの高さが変わらないように */
+  margin-top: 14px;
+}
+
+.fx-layer {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  width: 200px;
+  height: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  left: var(--x);
+  bottom: 0;
+  width: var(--size);
+  height: var(--size);
+  animation: float-up 1.4s var(--ease-soft) forwards;
+}
+
+.particle .icon {
+  width: 100%;
+  height: 100%;
+}
+
+.particle--heart {
+  color: #E39AAE;
+}
+
+.particle--paw {
+  color: #9DB794;
+}
+
+@keyframes float-up {
+  0% { opacity: 0; transform: translate(0, 10px) scale(0.4) rotate(var(--tilt)); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--drift), -120px) scale(1) rotate(var(--tilt)); }
+}
+
+/* べべをなでると、ももがひょっこり登場 */
+.cameo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row-reverse; /* 右端にもも、その左に吹き出し（べべの吹き出しの下の段） */
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.25s, transform 0.45s var(--ease-bounce);
+  pointer-events: none;
+}
+
+.cameo.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.cameo__icon {
+  width: 52px;
+  height: 52px;
+}
+
+.cameo.is-shown .cameo__icon {
+  animation: hop 0.6s var(--ease-bounce) 0.2s;
+}
+
+.bubble--cameo {
+  transform-origin: right bottom;
+}
+
+.cameo.is-shown .bubble--cameo {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 860px) {
+  .profiles {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 40px;
+  }
+
+  /* ももは少し下にずらして、リズムを出す */
+  .profile--momo {
+    margin-top: 56px;
+  }
+}
+
+/* ---------- 8. OUR STORY ---------- */
+.stories {
+  display: grid;
+  gap: 64px;
+}
+
+.story {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+}
+
+.story__photo {
+  width: min(100%, 420px);
+  aspect-ratio: 4 / 5;
+  margin-inline: auto;
+  border-radius: var(--radius-l);
+  box-shadow: 14px 14px 0 var(--accent);
+}
+
+.story__photo .photo__img {
+  height: 100%;
+}
+
+.story--bebe {
+  --accent: var(--color-bebe);
+}
+
+.story--momo {
+  --accent: var(--color-momo);
+}
+
+.story--momo .story__photo {
+  box-shadow: -14px 14px 0 var(--accent);
+}
+
+.story__title {
+  margin-top: 6px;
+  font-size: 1.375rem;
+  line-height: 1.6;
+}
+
+.story__body p + p,
+.story__title + p {
+  margin-top: 14px;
+}
+
+.story__body > p:not(.eyebrow) {
+  color: var(--color-sub);
+  line-height: 2.1;
+}
+
+@media (min-width: 860px) {
+  .story {
+    grid-template-columns: 5fr 6fr;
+    gap: 64px;
+  }
+
+  .story--momo .story__photo {
+    order: 2;
+  }
+}
+
+/* ---------- 9. DAILY LIFE ---------- */
+.episodes {
+  display: grid;
+  gap: 24px;
+}
+
+.episode {
+  padding: 16px 16px 28px;
+  background: var(--color-card);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.4s var(--ease-bounce), box-shadow 0.4s;
+}
+
+@media (hover: hover) {
+  .episode:hover {
+    transform: translateY(-5px) rotate(-0.4deg);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+.episode__label {
+  margin-top: 20px;
+  padding-inline: 8px;
+  font-family: var(--font-en);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-sub);
+}
+
+.episode__num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2em;
+  height: 2.2em;
+  margin-right: 4px;
+  color: var(--color-text);
+  letter-spacing: 0;
+  background: var(--color-pink);
+  border-radius: 50%;
+}
+
+.episode__title {
+  margin-top: 8px;
+  padding-inline: 8px;
+  font-size: 1.25rem;
+}
+
+.episode__text {
+  margin-top: 8px;
+  padding-inline: 8px;
+  font-size: 0.9375rem;
+  color: var(--color-sub);
+}
+
+/* カード上部のミニイラスト */
+.scene {
+  position: relative;
+  height: 128px;
+  overflow: hidden;
+  border-radius: calc(var(--radius-m) - 6px);
+}
+
+.scene .icon {
+  width: 100%;
+  height: 100%;
+}
+
+.scene__cat {
+  position: absolute;
+  bottom: 18px;
+  width: 64px;
+  height: 64px;
+}
+
+.scene--push {
+  background: linear-gradient(90deg, var(--color-bebe) 50%, var(--color-momo-soft) 50%);
+}
+
+.scene--push .scene__cat--bebe {
+  left: calc(50% - 74px);
+  width: 76px;
+  height: 76px;
+  transform-origin: bottom center;
+}
+
+.scene--push .scene__cat--momo {
+  left: calc(50% + 4px);
+}
+
+/* べべの汗 */
+.sweat {
+  position: absolute;
+  top: 6px;
+  left: -6px;
+  width: 10px;
+  height: 14px;
+  background: #A9CBE0;
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  opacity: 0;
+}
+
+.scene--lap {
+  background: var(--color-momo-soft);
+}
+
+.scene__lap {
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  width: 170px;
+  height: 64px;
+  background: var(--color-pink);
+  border-radius: 999px 999px 0 0;
+  transform: translateX(-50%);
+}
+
+.scene--lap .scene__cat--momo {
+  left: calc(50% - 32px);
+  bottom: 26px;
+  transform-origin: bottom center;
+}
+
+.scene__heart {
+  position: absolute;
+  top: 16px;
+  left: calc(50% + 36px);
+  width: 22px;
+  height: 22px;
+  color: #E39AAE;
+}
+
+.scene--metoo {
+  background: linear-gradient(90deg, var(--color-bebe), var(--color-momo-soft));
+}
+
+.scene--metoo .scene__cat--bebe {
+  left: calc(50% - 80px);
+  width: 72px;
+  height: 72px;
+}
+
+.scene__heart--small {
+  top: -14px;
+  left: 50px;
+  width: 18px;
+  height: 18px;
+}
+
+.scene--metoo .scene__cat--momo {
+  left: calc(50% + 12px);
+}
+
+.scene__say {
+  position: absolute;
+  bottom: 100%;
+  left: 20px;
+  margin-bottom: 2px;
+  padding: 0 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--color-card);
+  border: 1.5px solid var(--color-text);
+  border-radius: 10px;
+}
+
+/* 画面に入ったら2回だけ動く。ホバー中はずっと動く */
+.episode.is-visible .scene--push .scene__cat--momo { animation: guigui 2.6s ease-in-out 0.4s 2; }
+.episode.is-visible .scene--push .scene__cat--bebe { animation: tajitaji 2.6s ease-in-out 0.4s 2; }
+.episode.is-visible .scene--push .sweat { animation: sweat 2.6s ease-in-out 0.4s 2; }
+.episode.is-visible .scene--lap .scene__cat--momo { animation: purr 2.4s ease-in-out 0.4s 3; }
+.episode.is-visible .scene--lap .scene__heart { animation: heart-pop 2.4s ease-in-out 0.4s 3; }
+.episode.is-visible .scene--metoo .scene__cat--momo { animation: run-in 3s var(--ease-bounce) 0.4s 2 both; }
+.episode.is-visible .scene--metoo .scene__heart--small { animation: heart-pop 3s ease-in-out 0.4s 2; }
+
+@media (hover: hover) {
+  .episode:hover .scene * {
+    animation-iteration-count: infinite !important;
+  }
+}
+
+@keyframes guigui {
+  0%, 30%, 100% { transform: translateX(0) rotate(0); }
+  42% { transform: translateX(-12px) rotate(-8deg); }
+  50% { transform: translateX(-4px) rotate(0); }
+  58% { transform: translateX(-12px) rotate(-8deg); }
+  70% { transform: translateX(0) rotate(0); }
+}
+
+@keyframes tajitaji {
+  0%, 30%, 100% { transform: rotate(0); }
+  44%, 62% { transform: translateX(-6px) rotate(-7deg); }
+  74% { transform: rotate(0); }
+}
+
+@keyframes sweat {
+  0%, 36%, 90%, 100% { opacity: 0; transform: translateY(0); }
+  46% { opacity: 1; }
+  80% { opacity: 1; transform: translateY(8px); }
+}
+
+@keyframes purr {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.96); }
+}
+
+@keyframes heart-pop {
+  0%, 20% { opacity: 0; transform: translateY(6px) scale(0.6); }
+  45%, 75% { opacity: 1; transform: translateY(-4px) scale(1); }
+  100% { opacity: 0; transform: translateY(-14px) scale(0.9); }
+}
+
+@keyframes run-in {
+  0% { opacity: 0; transform: translateX(90px); }
+  30%, 85% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@media (min-width: 760px) {
+  .episodes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .episode:nth-child(2) {
+    margin-top: 28px;
+  }
+}
+
+/* ---------- 10. GALLERY ---------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.filter {
+  min-height: 44px;
+  padding: 0 20px;
+  font-weight: 700;
+  background: var(--color-card);
+  border: 2px solid var(--color-line);
+  border-radius: 999px;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.25s var(--ease-bounce);
+}
+
+.filter:hover {
+  border-color: var(--color-text);
+}
+
+.filter[aria-pressed="true"] {
+  color: #fff;
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.filter--bebe[aria-pressed="true"] {
+  color: var(--color-text);
+  background: var(--color-bebe);
+}
+
+.filter--momo[aria-pressed="true"] {
+  color: var(--color-text);
+  background: var(--color-momo);
+}
+
+.filter--both[aria-pressed="true"] {
+  color: var(--color-text);
+  background: var(--color-pink);
+}
+
+/* 段組みで写真の縦横比をそのまま並べる（無理に切り抜かない） */
+.gallery {
+  columns: 2;
+  column-gap: 14px;
+}
+
+.gallery__item {
+  margin-bottom: 22px;
+  break-inside: avoid;
+}
+
+.gallery__button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.35s var(--ease-soft), box-shadow 0.35s;
+}
+
+.gallery__button .photo__img {
+  transition: transform 0.6s var(--ease-soft);
+}
+
+.gallery__button:focus-visible {
+  border-radius: var(--radius-m);
+}
+
+@media (hover: hover) {
+  .gallery__button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .gallery__button:hover .photo__img {
+    transform: scale(1.04);
+  }
+}
+
+.gallery__caption {
+  margin-top: 8px;
+  padding-inline: 4px;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--color-sub);
+}
+
+@media (min-width: 900px) {
+  .gallery {
+    columns: 3;
+    column-gap: 24px;
+  }
+
+  .gallery__item {
+    margin-bottom: 28px;
+  }
+}
+
+/* 拡大表示 */
+.lightbox {
+  width: min(94vw, 1100px);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  color: #fff;
+  background: transparent;
+  border: 0;
+}
+
+.lightbox::backdrop {
+  background: rgb(38 35 38 / 0.86);
+  backdrop-filter: blur(4px);
+}
+
+.lightbox[open] {
+  animation: fade-in 0.25s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.98); }
+}
+
+.lightbox__inner {
+  position: relative;
+  padding: 56px 0 8px;
+}
+
+.lightbox__img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 76svh;
+  margin: 0 auto;
+  border-radius: var(--radius-m);
+  background: var(--color-bg-tint);
+}
+
+.lightbox__caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 16px;
+  margin-top: 14px;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+.lightbox__count {
+  font-family: var(--font-en);
+  color: rgb(255 255 255 / 0.7);
+}
+
+.lightbox__close,
+.lightbox__nav {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--color-text);
+  background: var(--color-card);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s var(--ease-bounce);
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  transform: scale(1.08);
+}
+
+.lightbox :focus-visible {
+  outline-color: var(--color-momo);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: calc(50% - 10px);
+}
+
+.lightbox__nav--prev {
+  left: 6px;
+}
+
+.lightbox__nav--next {
+  right: 6px;
+}
+
+@media (min-width: 900px) {
+  .lightbox__nav--prev {
+    left: -64px;
+  }
+
+  .lightbox__nav--next {
+    right: -64px;
+  }
+
+  .lightbox {
+    width: min(84vw, 1100px);
+  }
+}
+
+/* ---------- 11. FOOTER ---------- */
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px var(--gutter) 40px;
+  text-align: center;
+  background: var(--color-bg-tint);
+}
+
+.paw-button--round {
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-top: 0;
+  padding: 0;
+}
+
+.paw-button--round .icon {
+  font-size: 1.6rem;
+}
+
+.site-footer__love {
+  margin-top: 8px;
+  font-family: var(--font-en);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.to-top {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  color: var(--color-sub);
+  border-radius: 999px;
+  transition: background-color 0.2s;
+}
+
+.to-top:hover {
+  background: var(--color-card);
+}
+
+/* ---------- 12. スクロール表示・動きを減らす設定 ---------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* .profile などは hover 用の transition も持っているので、表示後は元の値に戻す */
+.js .profile.reveal.is-visible,
+.js .episode.reveal.is-visible {
+  transition: transform 0.45s var(--ease-soft), box-shadow 0.45s, opacity 0.9s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* 動きなしでも演出の結果（吹き出し・もも登場）は見えるように */
+  .particle {
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- べべの顔（おでこに斜めの白いすじ） -->
+  <defs>
+    <clipPath id="h"><path d="M12 23 L13 6 L26 16 Q32 14.5 38 16 L51 6 L52 23 Q58 31 56 41 Q52 57 32 57.5 Q12 57 8 41 Q6 31 12 23Z"/></clipPath>
+  </defs>
+  <path d="M12 23 L13 6 L26 16 Q32 14.5 38 16 L51 6 L52 23 Q58 31 56 41 Q52 57 32 57.5 Q12 57 8 41 Q6 31 12 23Z" fill="#fff"/>
+  <path clip-path="url(#h)" fill="#262326" d="M0 0 H64 V47 Q53 46 45 42 L37 41 Q34 43 32 46 Q30 43 27 41 L19 42 Q11 46 0 47Z"/>
+  <path d="M30 41.5 Q27.5 32 24.5 20.5 Q26.5 19 28 21.5 Q30.5 31 33 40.5Z" fill="#fff"/>
+  <path d="M12 23 L13 6 L26 16 Q32 14.5 38 16 L51 6 L52 23 Q58 31 56 41 Q52 57 32 57.5 Q12 57 8 41 Q6 31 12 23Z" fill="none" stroke="#262326" stroke-width="3" stroke-linejoin="round"/>
+  <ellipse cx="20" cy="33" rx="4.5" ry="5" fill="#C4DB7A"/>
+  <ellipse cx="43" cy="33" rx="4.5" ry="5" fill="#C4DB7A"/>
+</svg>

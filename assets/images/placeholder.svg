@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+  <!-- 写真が見つからないときに表示する代わりの画像 -->
+  <rect width="400" height="300" fill="#F3ECE3"/>
+  <g fill="#E3D6C8" transform="translate(176 112) scale(1.5)">
+    <ellipse cx="16" cy="21.5" rx="7.5" ry="6.5"/>
+    <ellipse cx="7" cy="13.5" rx="3" ry="3.8"/>
+    <ellipse cx="12.5" cy="8" rx="3" ry="3.8"/>
+    <ellipse cx="19.5" cy="8" rx="3" ry="3.8"/>
+    <ellipse cx="25" cy="13.5" rx="3" ry="3.8"/>
+  </g>
+  <text x="200" y="190" text-anchor="middle" font-family="Quicksand, Nunito, sans-serif" font-size="13" letter-spacing="3" fill="#A0958E">PHOTO COMING SOON</text>
+</svg>
