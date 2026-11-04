@@ -12,6 +12,7 @@
    6. セクション見出し
    7. MEET THE CATS
    8. OUR STORY
+   8.5 LITTLE DAYS（子猫のころ）
    9. DAILY LIFE
    10. GALLERY / LIGHTBOX
    11. FOOTER
@@ -291,6 +292,11 @@ button {
   transition-timing-function: ease, var(--ease-soft);
 }
 
+/* なですぎて噛んだとき */
+.bubble--bebe.is-bite {
+  background: var(--color-pink);
+}
+
 .bubble--momo {
   background: var(--color-momo-soft);
 }
@@ -396,7 +402,7 @@ button {
 
 .nav-list a {
   display: block;
-  padding: 8px 10px;
+  padding: 8px 7px;
   font-family: var(--font-en);
   font-size: 0.875rem;
   font-weight: 600;
@@ -990,6 +996,139 @@ button {
 
   .story--momo .story__photo {
     order: 2;
+  }
+}
+
+/* ---------- 8.5 LITTLE DAYS（子猫のころ） ---------- */
+.kittens {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr); /* 横スクロールの中身で幅が広がらないように */
+  gap: 56px;
+}
+
+.kitten--bebe {
+  --accent: var(--color-bebe);
+  --accent-deep: var(--color-bebe-deep);
+}
+
+.kitten--momo {
+  --accent: var(--color-momo-soft);
+  --accent-deep: var(--color-momo-deep);
+}
+
+.kitten__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+}
+
+.kitten__icon {
+  width: 44px;
+  height: 44px;
+  padding: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.kitten__en {
+  font-family: var(--font-en);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-deep);
+}
+
+/* スマホ：横にスワイプして見る。広い画面：3列に並べる */
+.kitten__strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(68%, 260px);
+  gap: 18px;
+  margin-inline: calc(var(--gutter) * -1);
+  padding: 18px var(--gutter) 26px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  overscroll-behavior-x: contain;
+}
+
+/* 古いアルバムに貼ったような、白いふちの写真 */
+.polaroid {
+  scroll-snap-align: start;
+  padding: 10px 10px 4px;
+  background: var(--color-card);
+  border-radius: 6px;
+  box-shadow: var(--shadow-soft);
+  transform: rotate(var(--tilt, -1.2deg));
+  transition: transform 0.4s var(--ease-bounce), box-shadow 0.4s;
+}
+
+.polaroid:nth-child(even) {
+  --tilt: 1.4deg;
+}
+
+.polaroid:nth-child(3n) {
+  --tilt: -0.6deg;
+}
+
+.polaroid__button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+}
+
+.polaroid__photo {
+  aspect-ratio: 3 / 4;
+  border-radius: 3px;
+}
+
+.polaroid__photo .photo__img,
+.polaroid__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.polaroid__video {
+  background: var(--color-text);
+}
+
+.polaroid__caption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 3.2em;
+  padding: 8px 2px;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--color-sub);
+}
+
+.polaroid--video .polaroid__caption .icon {
+  color: var(--accent-deep);
+}
+
+@media (hover: hover) {
+  .polaroid:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+@media (min-width: 760px) {
+  .kitten__strip {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 28px;
+    margin-inline: 0;
+    padding: 18px 8px 8px;
+    overflow: visible;
   }
 }
 

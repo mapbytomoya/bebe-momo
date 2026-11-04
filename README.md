@@ -29,8 +29,12 @@ bebe-momo/
 │   ├── images/
 │   │   ├── IMG_xxxx.jpg    猫の写真（自分で追加）
 │   │   └── placeholder.svg 写真が見つからないときの代わり画像
+│   ├── videos/
+│   │   └── momo-kitten-*.mp4 / .jpg  子猫のころの動画（音声なし）と再生前の画像
 │   └── icons/
 │       └── favicon.svg     ブラウザのタブに出るべべの顔
+├── tools/
+│   └── drop_audio.py       動画から音声を消すスクリプト
 └── README.md
 ```
 
@@ -68,6 +72,28 @@ VS Code を使っている場合は、拡張機能「Live Server」でもOKで�
 
 ※ ギャラリーにはすべての写真が並びます。
 写真ファイルが見つからない場所には、置くべきファイル名がグレーのラベルで表示されます。
+
+### 子猫のころ（LITTLE DAYS）
+
+`data.js` の `kittenPhotos`（写真）と `kittenVideos`（動画）に、猫ごとに並べています。
+写真の書き方は `photos` と同じです。写真を押すと拡大表示になり、その猫の子猫写真だけで前後に移動します。
+ここの写真は下のギャラリー（アルバム）には出ません。
+
+### 動画を追加する（音声を消す）
+
+動画は家族の声などが入らないよう、音声を消して載せています。画質はそのまま、位置情報などのメタデータも消えます。
+
+```bash
+python3 -I tools/drop_audio.py originals/元の動画.MP4 /tmp/noaudio.mp4
+avconvert -s /tmp/noaudio.mp4 -p PresetPassthrough -o assets/videos/momo-kitten-3.mp4
+```
+
+再生前に表示する画像は QuickLook で作れます。
+
+```bash
+qlmanage -t -s 720 -o /tmp assets/videos/momo-kitten-3.mp4
+sips -s format jpeg /tmp/momo-kitten-3.mp4.png --out assets/videos/momo-kitten-3.jpg
+```
 
 ### 2. 新しい写真を変換する（位置情報も消える方法）
 

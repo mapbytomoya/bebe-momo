@@ -4,7 +4,7 @@
  * 方針：テンプレートリテラル（`...${}...`）で HTML の文字列を作り、innerHTML で入れる。
  * data.js の文字列は escapeHTML() を通してから埋め込むので、< や & が入っていても安全です。
  */
-import { IMAGE_DIR, cats, photos, heroPhotos, episodes } from './data.js';
+import { IMAGE_DIR, VIDEO_DIR, cats, photos, heroPhotos, kittenPhotos, kittenVideos, episodes } from './data.js';
 
 /** HTML として特別な意味を持つ文字を、ただの文字に変換する */
 function escapeHTML(text) {
@@ -170,6 +170,61 @@ function renderStories(root) {
 }
 
 /* ------------------------------------------------------------
+ * LITTLE DAYS（子猫のころ）
+ * 写真は押すと拡大表示（gallery.js）。動画はその場で再生します。
+ * ------------------------------------------------------------ */
+function kittenPhotoCard(photo, index, catId) {
+  return `
+    <li class="polaroid">
+      <figure>
+        <button type="button" class="polaroid__button" data-kitten="${catId}" data-index="${index}"
+                aria-label="写真を拡大：${escapeHTML(photo.alt)}">
+          <span class="photo polaroid__photo">${imgTag(photo)}</span>
+        </button>
+        <figcaption class="polaroid__caption">${escapeHTML(photo.caption)}</figcaption>
+      </figure>
+    </li>`;
+}
+
+function kittenVideoCard(video) {
+  return `
+    <li class="polaroid polaroid--video">
+      <figure>
+        <span class="photo polaroid__photo">
+          <video class="polaroid__video" controls muted playsinline loop preload="none"
+                 width="${video.width}" height="${video.height}"
+                 poster="${VIDEO_DIR}${escapeHTML(video.poster)}"
+                 aria-label="${escapeHTML(video.label)}">
+            <source src="${VIDEO_DIR}${escapeHTML(video.file)}" type="video/mp4">
+          </video>
+        </span>
+        <figcaption class="polaroid__caption">${icon('paw')} ${escapeHTML(video.caption)}</figcaption>
+      </figure>
+    </li>`;
+}
+
+function kittenGroup(cat) {
+  const list = kittenPhotos[cat.id] ?? [];
+  const videos = kittenVideos[cat.id] ?? [];
+  return `
+    <article class="kitten kitten--${cat.id} reveal" aria-labelledby="kitten-${cat.id}-title">
+      <h3 class="kitten__title" id="kitten-${cat.id}-title">
+        ${icon(cat.id, 'kitten__icon')}
+        <span>ちいさな${escapeHTML(cat.name)}</span>
+        <span class="kitten__en" lang="en">LITTLE ${escapeHTML(cat.nameEn)}</span>
+      </h3>
+      <ul class="kitten__strip">
+        ${list.map((photo, i) => kittenPhotoCard(photo, i, cat.id)).join('')}
+        ${videos.map(kittenVideoCard).join('')}
+      </ul>
+    </article>`;
+}
+
+function renderKittens(root) {
+  root.innerHTML = [cats.bebe, cats.momo].map(kittenGroup).join('');
+}
+
+/* ------------------------------------------------------------
  * DAILY LIFE（エピソードカード）
  * 各カード上部の小さなイラスト。アイコンを並べて CSS で動かしています。
  * ------------------------------------------------------------ */
@@ -229,6 +284,7 @@ export function renderAll() {
     ['[data-hero]', renderHero],
     ['[data-profiles]', renderProfiles],
     ['[data-stories]', renderStories],
+    ['[data-kittens]', renderKittens],
     ['[data-episodes]', renderEpisodes],
     ['[data-gallery]', renderGallery],
   ];

@@ -2,10 +2,11 @@
  * gallery.js — 写真アルバムの絞り込みと、拡大表示（ライトボックス）
  *
  * 拡大表示にはブラウザ標準の <dialog> 要素を使っています。
+ * 「子猫のころ」の写真も、同じ拡大表示を使います（猫ごとの写真だけで前後に移動）。
  *   - showModal() で開くと、背景が操作できなくなり、フォーカスがダイアログ内に閉じ込められる
  *   - Escape キーで閉じる動作も標準で付いている
  */
-import { IMAGE_DIR, photos } from './data.js';
+import { IMAGE_DIR, photos, kittenPhotos } from './data.js';
 
 const FILTER_LABELS = { all: 'すべて', bebe: 'べべ', momo: 'もも', both: 'ふたり' };
 
@@ -31,7 +32,8 @@ export function setupGallery() {
 
   let currentFilter = 'all';
   let visibleIndexes = photos.map((_, i) => i); // 今表示されている写真の番号一覧
-  let position = 0; // visibleIndexes の中で、今開いている位置
+  let currentSet = []; // 拡大表示で前後に移動する写真の一覧
+  let position = 0; // currentSet の中で、今開いている位置
   let opener = null; // ダイアログを開いたボタン（閉じたらここにフォーカスを戻す）
 
   /* ---------- 絞り込み ---------- */
@@ -59,9 +61,9 @@ export function setupGallery() {
   /* ---------- 拡大表示 ---------- */
   function showPhoto(pos) {
     // 端まで行ったら反対側へ（ループ）
-    const total = visibleIndexes.length;
+    const total = currentSet.length;
     position = (pos + total) % total;
-    const photo = photos[visibleIndexes[position]];
+    const photo = currentSet[position];
 
     img.classList.remove('is-missing');
     img.src = `${IMAGE_DIR}${photo.file}`;
@@ -76,16 +78,25 @@ export function setupGallery() {
     count.textContent = `${position + 1} / ${total}`;
   }
 
-  function open(photoIndex, button) {
+  function open(set, pos, button) {
     opener = button;
-    showPhoto(visibleIndexes.indexOf(photoIndex));
+    currentSet = set;
+    showPhoto(pos);
     dialog.showModal();
     document.body.classList.add('is-locked'); // 背景のスクロールを止める
   }
 
   list.addEventListener('click', (event) => {
     const button = event.target.closest('.gallery__button');
-    if (button) open(Number(button.dataset.index), button);
+    if (!button) return;
+    const set = visibleIndexes.map((i) => photos[i]);
+    open(set, visibleIndexes.indexOf(Number(button.dataset.index)), button);
+  });
+
+  // 子猫のころ：押した猫の写真だけで前後に移動する
+  document.querySelector('[data-kittens]')?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-kitten]');
+    if (button) open(kittenPhotos[button.dataset.kitten], Number(button.dataset.index), button);
   });
 
   dialog.querySelector('[data-lightbox-close]').addEventListener('click', () => dialog.close());

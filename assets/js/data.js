@@ -148,6 +148,146 @@ export const photos = [
   },
 ];
 
+/* ------------------------------------------------------------
+ * 子猫のころ（LITTLE DAYS）
+ * 送ってもらった子猫時代の写真。書き方は上の photos と同じです。
+ * 当時の写真を撮り直したものも多いので、写り込みは補正していません。
+ * ------------------------------------------------------------ */
+export const kittenPhotos = {
+  bebe: [
+    {
+      id: 'IMG_2363',
+      file: 'IMG_2363.jpg',
+      cats: ['bebe'],
+      width: 720,
+      height: 1280,
+      focus: '45% 48%',
+      darkFur: false,
+      alt: '草むらの中にいる、小さな黒白の子猫のべべ',
+      caption: '草むらの中から、こちらをじっと。',
+    },
+    {
+      id: 'IMG_2358',
+      file: 'IMG_2358.jpg',
+      cats: ['bebe'],
+      width: 1200,
+      height: 1600,
+      focus: '50% 45%',
+      darkFur: false,
+      alt: '人の腕にだっこされた子猫のべべ。白いおなかと肉球が見えている',
+      caption: 'だっこで、白いおなかをまる見せ。',
+    },
+    {
+      id: 'IMG_2372',
+      file: 'IMG_2372.jpg',
+      cats: ['bebe'],
+      width: 1200,
+      height: 1600,
+      focus: '45% 50%',
+      darkFur: false,
+      alt: '人の手に抱えられた子猫のべべ。おでこに白いすじ模様がある',
+      caption: 'このころから、おでこのハチワレ。',
+    },
+    {
+      id: 'IMG_2371',
+      file: 'IMG_2371.jpg',
+      cats: ['bebe'],
+      width: 1200,
+      height: 1600,
+      focus: '45% 55%',
+      darkFur: false,
+      alt: '水色の毛布の上で、目を閉じて眠る子猫のべべ',
+      caption: '水色の毛布で、すやすや。',
+    },
+    {
+      id: 'IMG_2370',
+      file: 'IMG_2370.jpg',
+      cats: ['bebe'],
+      width: 1200,
+      height: 1600,
+      focus: '45% 50%',
+      darkFur: false,
+      alt: '赤いチェック柄の布の上で、上を向いて眠る子猫のべべ',
+      caption: '赤いチェックの上で、ぐっすり。',
+    },
+    {
+      id: 'IMG_2369',
+      file: 'IMG_2369.jpg',
+      cats: ['bebe'],
+      width: 1200,
+      height: 1600,
+      focus: '50% 45%',
+      darkFur: false,
+      alt: '目を閉じた子猫のべべの顔のアップ',
+      caption: 'おやすみ中のお顔をアップで。',
+    },
+  ],
+  momo: [
+    {
+      id: 'IMG_2366',
+      file: 'IMG_2366.jpg',
+      cats: ['momo'],
+      width: 1108,
+      height: 1477,
+      focus: '50% 40%',
+      darkFur: true,
+      alt: 'ストライプの布の上で、あおむけで眠る黒い子猫のもも。ピンクの首輪に鈴がついている',
+      caption: 'ピンクの首輪で、ばんざい寝。',
+    },
+    {
+      id: 'IMG_2367',
+      file: 'IMG_2367.jpg',
+      cats: ['momo'],
+      width: 1108,
+      height: 1477,
+      focus: '50% 50%',
+      darkFur: true,
+      alt: 'ストライプの布の上で、丸くなって眠る黒い子猫のもも',
+      caption: 'ストライプにくるまって、すやすや。',
+    },
+    {
+      id: 'IMG_2368',
+      file: 'IMG_2368.jpg',
+      cats: ['momo'],
+      width: 1200,
+      height: 1600,
+      focus: '50% 45%',
+      darkFur: true,
+      alt: '白いふわふわの毛布に顔をうずめる黒い子猫のもも',
+      caption: 'ふわふわの毛布に、顔をうずめて。',
+    },
+  ],
+};
+
+/**
+ * 子猫のころの動画（音声は消してあります）
+ *  - file   : assets/videos/ 内の動画ファイル
+ *  - poster : 再生前に表示する画像
+ */
+export const VIDEO_DIR = 'assets/videos/';
+
+export const kittenVideos = {
+  bebe: [],
+  momo: [
+    {
+      file: 'momo-kitten-1.mp4',
+      poster: 'momo-kitten-1.jpg',
+      width: 720,
+      height: 1280,
+      label: '子猫のもも、毛布の上でうとうとする動画（15秒・音声なし）',
+      caption: '毛布の上で、うとうと。（15秒）',
+    },
+    {
+      file: 'momo-kitten-2.mp4',
+      poster: 'momo-kitten-2.jpg',
+      width: 720,
+      height: 1280,
+      label: '子猫のもも、毛布の上で横になる動画（32秒・音声なし）',
+      caption: 'ふわふわ毛布で、ごろん。（32秒）',
+    },
+  ],
+};
+
 /** ヒーローで使う写真（メイン1枚＋丸い小窓2枚） */
 export const heroPhotos = {
   main: 'IMG_2232',
@@ -188,7 +328,9 @@ export const episodes = [
  * ------------------------------------------------------------ */
 export const messages = {
   // 「べべをなでる」を押したときのべべ
-  bebePet: ['ごろごろ…', 'そこ、きもちいい…', 'ふにゃあ…', 'もうちょっとだけ…'],
+  bebePet: ['ごろごろ…', 'ふにゃあ…', 'もうちょっとだけ…'],
+  // 続けてなですぎたときのべべ（ときどき噛みます）
+  bebeBite: ['がぶっ！ …なですぎ。', 'かぷっ。もうおしまい。'],
   // べべを撫でた少しあとに登場するもも
   momoMeToo: 'わたしも！',
   // 「ももを呼ぶ」を押したとき

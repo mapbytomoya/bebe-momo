@@ -1,6 +1,6 @@
 /**
  * interactions.js — ボタンを押したときの小さな演出
- *   A. べべをなでる（ハート＆肉球 → べべのひとこと → 少し遅れてももが登場）
+ *   A. べべをなでる（ハート＆肉球 → べべのひとこと → 少し遅れてももが登場。なですぎると噛む）
  *   B. ももを呼ぶ（ランダムな吹き出し）
  *   C. 肉球メッセージ
  */
@@ -11,6 +11,10 @@ const MAX_PARTICLES = 14;
 
 /** もも登場までの待ち時間（ミリ秒） */
 const MOMO_DELAY = 900;
+
+/** 続けて何回なでると噛むか／「続けて」とみなす間隔（ミリ秒） */
+const BITE_AFTER = 5;
+const PET_STREAK_GAP = 1500;
 
 /** 吹き出しを表示しておく時間（ミリ秒） */
 const BUBBLE_DURATION = 2600;
@@ -79,8 +83,25 @@ function setupPetBebe() {
   let momoTimer = null;
   let cameoHideTimer = null;
   let lastMessage = '';
+  let streak = 0; // 続けてなでた回数
+  let lastPetAt = 0;
 
   button.addEventListener('click', () => {
+    const now = Date.now();
+    streak = now - lastPetAt < PET_STREAK_GAP ? streak + 1 : 1;
+    lastPetAt = now;
+
+    // なですぎ：ハートもももも出さずに、べべが噛む
+    if (streak >= BITE_AFTER) {
+      streak = 0;
+      lastMessage = pickRandom(messages.bebeBite, lastMessage);
+      showBubble(bubble, lastMessage);
+      bubble.classList.add('is-bite');
+      clearTimeout(momoTimer); // このときは、ももも様子見
+      return;
+    }
+    bubble.classList.remove('is-bite');
+
     // 1. ハートや肉球を3つ
     for (let i = 0; i < 3; i++) setTimeout(() => spawnParticle(layer), i * 90);
 
