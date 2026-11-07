@@ -4,7 +4,7 @@
  * 方針：テンプレートリテラル（`...${}...`）で HTML の文字列を作り、innerHTML で入れる。
  * data.js の文字列は escapeHTML() を通してから埋め込むので、< や & が入っていても安全です。
  */
-import { IMAGE_DIR, VIDEO_DIR, cats, photos, heroPhotos, kittenPhotos, kittenNotes, kittenVideos, episodes } from './data.js';
+import { IMAGE_DIR, VIDEO_DIR, cats, photos, heroPhotos, kittenPhotos, kittenNotes, kittenVideos, albumPhotos, episodes } from './data.js';
 
 /** HTML として特別な意味を持つ文字を、ただの文字に変換する */
 function escapeHTML(text) {
@@ -279,7 +279,7 @@ function galleryItem(photo, index) {
 }
 
 function renderGallery(root) {
-  root.innerHTML = photos.map(galleryItem).join('');
+  root.innerHTML = albumPhotos.map(galleryItem).join('');
 }
 
 /** ページ全体を描画する（main.js から呼ばれる） */

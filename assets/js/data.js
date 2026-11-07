@@ -325,6 +325,16 @@ export const kittenPhotos = {
 };
 
 /**
+ * 写真アルバムに並べる写真：いまの写真 → 子猫のころの写真 の順。
+ * 子猫の写真には kitten: true を付けて、「子猫のころ」の絞り込みに使います。
+ * photos や kittenPhotos に足した写真は、自動でアルバムにも並びます。
+ */
+export const albumPhotos = [
+  ...photos,
+  ...[...kittenPhotos.bebe, ...kittenPhotos.momo].map((photo) => ({ ...photo, kitten: true })),
+];
+
+/**
  * 子猫のころの動画（音声は消してあります）
  *  - file   : assets/videos/ 内の動画ファイル
  *  - poster : 再生前に表示する画像

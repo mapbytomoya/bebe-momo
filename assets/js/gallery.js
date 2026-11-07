@@ -6,14 +6,15 @@
  *   - showModal() で開くと、背景が操作できなくなり、フォーカスがダイアログ内に閉じ込められる
  *   - Escape キーで閉じる動作も標準で付いている
  */
-import { IMAGE_DIR, photos, kittenPhotos } from './data.js';
+import { IMAGE_DIR, albumPhotos as photos, kittenPhotos } from './data.js';
 
-const FILTER_LABELS = { all: 'すべて', bebe: 'べべ', momo: 'もも', both: 'ふたり' };
+const FILTER_LABELS = { all: 'すべて', bebe: 'べべ', momo: 'もも', both: 'ふたり', kitten: '子猫のころ' };
 
 /** 写真がフィルターに当てはまるか */
 function matchesFilter(photo, filter) {
   if (filter === 'all') return true;
   if (filter === 'both') return photo.cats.length >= 2;
+  if (filter === 'kitten') return Boolean(photo.kitten);
   return photo.cats.includes(filter);
 }
 

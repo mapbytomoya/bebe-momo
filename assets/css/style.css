@@ -1418,6 +1418,11 @@ button {
   background: var(--color-pink);
 }
 
+.filter--kitten[aria-pressed="true"] {
+  color: var(--color-text);
+  background: var(--color-momo-soft);
+}
+
 /* 段組みで写真の縦横比をそのまま並べる（無理に切り抜かない） */
 .gallery {
   columns: 2;
