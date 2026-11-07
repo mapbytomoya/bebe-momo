@@ -159,6 +159,12 @@ sips -g pixelWidth -g pixelHeight assets/images/*.jpg
 - **HERO のキャッチコピーやセクション見出し**：`index.html`
 - **色・フォント**：`style.css` の先頭 `:root { ... }`
 
+## 更新を公開するときの注意
+
+GitHub Pages では、ブラウザがファイルを10分ほど保存します。そのため、更新直後に古いファイルと新しいファイルが混ざって表示されることがあります。
+これを防ぐため、`index.html` では CSS と JS の後ろに `?v=20261107` のような日付を付けています。
+**CSS や JS を変えたときは、`index.html` の中の日付をすべて新しい日付に置き換えてから** push してください（写真や data.js の文章だけの変更でも、data.js を変えたら同じです）。
+
 ## GitHub Pages で公開する
 
 1. GitHub で新しいリポジトリ（例：`bebe-momo`）を作る

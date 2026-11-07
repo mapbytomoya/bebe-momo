@@ -24,11 +24,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261107">
 
   <!-- JSが動く環境だけ「ふわっと表示」用のクラスを付ける（JSなしでも内容は見える） -->
   <script>document.documentElement.classList.add('js');</script>
-  <script type="module" src="assets/js/main.js"></script>
+  <!--
+    更新したのに古い表示が残らないよう、ファイル名の後ろに ?v=日付 を付けています。
+    CSS や JS を変えて公開するときは、このページ内の「20261107」をすべて新しい日付に置き換えてください。
+  -->
+  <script type="importmap">
+    {
+      "imports": {
+        "./assets/js/data.js": "./assets/js/data.js?v=20261107",
+        "./assets/js/render.js": "./assets/js/render.js?v=20261107",
+        "./assets/js/interactions.js": "./assets/js/interactions.js?v=20261107",
+        "./assets/js/gallery.js": "./assets/js/gallery.js?v=20261107"
+      }
+    }
+  </script>
+  <script type="module" src="assets/js/main.js?v=20261107"></script>
 </head>
 <body>
   <!-- 猫アイコン・肉球などのSVG部品。<use href="#icon-bebe"> のように呼び出して使います -->
