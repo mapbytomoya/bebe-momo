@@ -1040,6 +1040,18 @@ button {
   color: var(--accent-deep);
 }
 
+.kitten__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 4px 14px;
+  font-size: 0.875rem;
+  color: var(--accent-deep);
+  background: var(--accent);
+  border-radius: 999px;
+}
+
 /* スマホ：横にスワイプして見る。広い画面：3列に並べる */
 .kitten__strip {
   display: grid;

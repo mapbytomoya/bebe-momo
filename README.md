@@ -30,7 +30,7 @@ bebe-momo/
 │   │   ├── IMG_xxxx.jpg    猫の写真（自分で追加）
 │   │   └── placeholder.svg 写真が見つからないときの代わり画像
 │   ├── videos/
-│   │   └── momo-kitten-*.mp4 / .jpg  子猫のころの動画（音声なし）と再生前の画像
+│   │   └── *-kitten-*.mp4 / .jpg  子猫のころの動画（音声なし）と再生前の画像
 │   └── icons/
 │       └── favicon.svg     ブラウザのタブに出るべべの顔
 ├── tools/

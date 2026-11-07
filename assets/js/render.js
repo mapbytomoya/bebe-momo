@@ -4,7 +4,7 @@
  * 方針：テンプレートリテラル（`...${}...`）で HTML の文字列を作り、innerHTML で入れる。
  * data.js の文字列は escapeHTML() を通してから埋め込むので、< や & が入っていても安全です。
  */
-import { IMAGE_DIR, VIDEO_DIR, cats, photos, heroPhotos, kittenPhotos, kittenVideos, episodes } from './data.js';
+import { IMAGE_DIR, VIDEO_DIR, cats, photos, heroPhotos, kittenPhotos, kittenNotes, kittenVideos, episodes } from './data.js';
 
 /** HTML として特別な意味を持つ文字を、ただの文字に変換する */
 function escapeHTML(text) {
@@ -107,6 +107,8 @@ function profileCard(cat) {
   const photo = getPhoto(cat.photo);
   const facts = [
     ['性別', cat.sex],
+    ['猫種', cat.breed],
+    ['誕生日', cat.birthday],
     ['年齢', cat.age],
     ['体重', cat.weight],
     ['毛色', cat.coat],
@@ -131,6 +133,7 @@ function profileCard(cat) {
 
         <dl class="facts">
           ${facts
+            .filter(([, value]) => value) // 空の項目は表示しない
             .map(([label, value]) => `<div class="facts__row"><dt>${label}</dt><dd>${escapeHTML(value)}</dd></div>`)
             .join('')}
         </dl>
@@ -213,6 +216,7 @@ function kittenGroup(cat) {
         <span>ちいさな${escapeHTML(cat.name)}</span>
         <span class="kitten__en" lang="en">LITTLE ${escapeHTML(cat.nameEn)}</span>
       </h3>
+      ${kittenNotes[cat.id] ? `<p class="kitten__note">${icon('paw')}${escapeHTML(kittenNotes[cat.id])}</p>` : ''}
       <ul class="kitten__strip">
         ${list.map((photo, i) => kittenPhotoCard(photo, i, cat.id)).join('')}
         ${videos.map(kittenVideoCard).join('')}

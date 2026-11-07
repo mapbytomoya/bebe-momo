@@ -10,7 +10,7 @@ export const IMAGE_DIR = 'assets/images/';
 
 /* ------------------------------------------------------------
  * 猫のプロフィール
- * 年齢・体重は推定値です。わからない情報（誕生日など）は書かない方針です。
+ * 年齢・体重・誕生日は推定値です。わからない情報は空文字 '' にすると表示されません。
  * ------------------------------------------------------------ */
 export const cats = {
   bebe: {
@@ -20,6 +20,8 @@ export const cats = {
     nameNote: 'フランス語の「bébé（赤ちゃん）」から',
     role: 'おっとり兄ちゃん',
     sex: '男の子',
+    breed: 'ミックス',
+    birthday: '2019年9月16日（推定）',
     age: '推定7歳（2026年時点）',
     weight: '約7kg（推定）',
     coat: '黒白のハチワレ',
@@ -48,6 +50,8 @@ export const cats = {
     nameNote: '',
     role: 'ぐいぐい妹',
     sex: '女の子',
+    breed: '',
+    birthday: '2024年4月6日（推定）',
     age: '推定2歳（2026年時点）',
     weight: '約4kg（推定）',
     coat: 'つややかな真っ黒',
@@ -153,6 +157,12 @@ export const photos = [
  * 送ってもらった子猫時代の写真。書き方は上の photos と同じです。
  * 当時の写真を撮り直したものも多いので、写り込みは補正していません。
  * ------------------------------------------------------------ */
+/** 子猫のころの記録（見出しの下に小さく表示。なければ '' ） */
+export const kittenNotes = {
+  bebe: '',
+  momo: '2024年5月21日の体重は、450g。',
+};
+
 export const kittenPhotos = {
   bebe: [
     {
@@ -221,6 +231,61 @@ export const kittenPhotos = {
       alt: '目を閉じた子猫のべべの顔のアップ',
       caption: 'おやすみ中のお顔をアップで。',
     },
+    {
+      id: 'IMG_2392',
+      file: 'IMG_2392.jpg',
+      cats: ['bebe'],
+      width: 900,
+      height: 1600,
+      focus: '45% 55%',
+      darkFur: false,
+      alt: '窓辺で、プランターの猫草を食べる子猫のべべ',
+      caption: '猫草を、もぐもぐ。',
+    },
+    {
+      id: 'IMG_2393',
+      file: 'IMG_2393.jpg',
+      cats: ['bebe'],
+      width: 905,
+      height: 1600,
+      focus: '50% 52%',
+      darkFur: false,
+      alt: '窓辺の白い植木鉢の横から、こちらを見る子猫のべべ',
+      caption: '植木鉢のとなりで、ちらり。',
+    },
+    {
+      id: 'IMG_2395',
+      file: 'IMG_2395.jpg',
+      cats: ['bebe'],
+      width: 905,
+      height: 1600,
+      focus: '50% 45%',
+      darkFur: false,
+      alt: '窓辺で低い姿勢になり、こちらを見つめる子猫のべべ',
+      caption: '低い姿勢で、そろりそろり。',
+    },
+    {
+      id: 'IMG_2396',
+      file: 'IMG_2396.jpg',
+      cats: ['bebe'],
+      width: 905,
+      height: 1600,
+      focus: '50% 40%',
+      darkFur: false,
+      alt: '窓辺の細い通路を、こちらへ歩いてくる子猫のべべ',
+      caption: '窓辺を、てくてく。',
+    },
+    {
+      id: 'IMG_2394',
+      file: 'IMG_2394.jpg',
+      cats: ['bebe'],
+      width: 905,
+      height: 1600,
+      focus: '55% 55%',
+      darkFur: false,
+      alt: '重ねた段ボール箱の穴から顔を出す子猫のべべ',
+      caption: '段ボールの窓から、ひょっこり。',
+    },
   ],
   momo: [
     {
@@ -267,7 +332,24 @@ export const kittenPhotos = {
 export const VIDEO_DIR = 'assets/videos/';
 
 export const kittenVideos = {
-  bebe: [],
+  bebe: [
+    {
+      file: 'bebe-kitten-1.mp4',
+      poster: 'bebe-kitten-1.jpg',
+      width: 720,
+      height: 1280,
+      label: '子猫のべべが、台の上で頭をなでてもらう動画（28秒・音声なし）',
+      caption: 'やさしく、なでてもらって。（28秒）',
+    },
+    {
+      file: 'bebe-kitten-2.mp4',
+      poster: 'bebe-kitten-2.jpg',
+      width: 720,
+      height: 1280,
+      label: '子猫のべべが、床の上を歩いたり遊んだりする動画（1分44秒・音声なし）',
+      caption: 'フローリングを、てくてく。（1分44秒）',
+    },
+  ],
   momo: [
     {
       file: 'momo-kitten-1.mp4',
